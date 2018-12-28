@@ -27,8 +27,9 @@ web3.eth.net.isListening()
         gas: 1000000
     }).then(function (contract29) {
         //console.log(contract29.address) // the contract address
-        console.log("Sending prize fund ether to 29.sol on rinkeby to: ", contract29.address)
-        eth.sendTransaction({from:ethAccount, to:contract29.address, value: 555529000})
+        console.log(contract29) // the contract
+        console.log("Sending prize fund ether to 29.sol on rinkeby to: ", contract29.address);
+        web3.eth.sendTransaction({from:ethAccount, to:contract29.address, value: 555529000})
         .then(function (txnHash) {
             // now you have the unmined transaction hash, return receipt promise
             console.log(txnhash); // follow along
