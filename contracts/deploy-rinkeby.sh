@@ -9,7 +9,7 @@ npm rebuild
 
 # output versions for any future debugging
 geth version
-nodejs -v
+node -v
 npm -v
 
 # import rinkeby test account
@@ -42,7 +42,7 @@ geth --rinkeby --exec $UNLOCK attach
 solc --optimize --combined-json abi,bin contracts/29.sol > /tmp/29.compiled.js
 
 # deploy 29.sol
-nodejs contracts/29.deploy.js
+node contracts/29.deploy.js
 
 #sleep for two blocks to allow contract to deploy and tests to run
 echo "sleep for 5 blocks" && geth --rinkeby --exec 'admin.sleepBlocks(5)' attach
