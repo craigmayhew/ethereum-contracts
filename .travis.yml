@@ -9,6 +9,7 @@ sudo: false
 dist: xenial
 
 cache:
+  npm: true
   directories:
     - $HOME/.ethereum/
 
