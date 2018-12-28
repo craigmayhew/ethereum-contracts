@@ -1,7 +1,7 @@
 var fs = require('fs');
 let Web3 = require('web3');
 
-let web3 = new Web3('ws://localhost:8545');
+let web3 = new Web3('http://127.0.0.1:8545');
  
 let storageOutput = fs.readFileSync('/tmp/29.compiled.js', 'utf8');
 //convert the output from a string to a javascript object
@@ -9,7 +9,7 @@ storageOutput = JSON.parse(storageOutput);
 
 web3.eth.net.isListening()
 .then(() => console.log('web3 is connected, accounts: ', web3.eth.accounts))
-.catch(e => console.log('ERROR connection not made to local node ws://localhost:8545'));
+.catch(e => console.log('ERROR connection not made to local node http://127.0.0.1:8545'));
 
 let storageContractAbi = storageOutput.contracts['contracts/29.sol:ethForAnswersBounty'].abi
 let storageContract = new web3.eth.Contract(JSON.parse(storageContractAbi))
