@@ -1,5 +1,8 @@
 # Ethereum Maths Bounty Contracts
 
+[![Build Status](https://travis-ci.org/craigmayhew/ethereum-contracts.svg?branch=master)](https://travis-ci.org/craigmayhew/ethereum-contracts)
+
+
 An experiment in rewarding mathematical progress.
 
 Anyone can send funds to the contracts, and when solutions are found, the contract pays out the prize to the first successful entry.
