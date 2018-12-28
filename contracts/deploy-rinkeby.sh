@@ -24,6 +24,7 @@ sleep 60s
 CHECK="$(geth --rinkeby --exec 'if(eth.syncing == false){2}else{0}' attach)"
 while [ "${CHECK}" -lt 2 ]
 do
+geth --rinkeby --exec 'eth.syncing' attach
 echo "still syncing, waiting 20s" && sleep 20s
 done
 echo "synced!"
