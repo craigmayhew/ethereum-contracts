@@ -6,7 +6,7 @@ var net = require('net');
 var web3 = new Web3('/home/travis/.ethereum/rinkeby/geth.ipc', net);
 
 // pull in an extension to web3, courtesy of https://gist.github.com/xavierlepretre/88682e871f4ad07be4534ae560692ee6
-web3.eth.getTransactionReceiptMined = require("getTransactionReceiptMined.js");
+web3.eth.getTransactionReceiptMined = require("modules/getTransactionReceiptMined.js");
 
 let storageOutput = fs.readFileSync('/tmp/29.compiled.js', 'utf8');
 //convert the output from a string to a javascript object
