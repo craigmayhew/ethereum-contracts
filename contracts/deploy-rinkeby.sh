@@ -16,7 +16,7 @@ mkdir -p $HOME/.ethereum/rinkeby/keystore/
 echo $RINKEBY_PRIVATE_ACCOUNT_JSON > $HOME/.ethereum/rinkeby/keystore/encrypted-rinkeby-account
 
 # connect to rinkeby
-geth --rinkeby --cache 4096 --nousb --syncmode light --rpc --rpcapi eth,web3,personal &
+geth --rinkeby --cache 4096 --nousb --syncmode light --rpc --rpcaddr "127.0.0.1" --rpcport "8545" --rpcapi eth,web3,personal &
 
 # sleep to allow rinkeby to sync
 sleep 60s
