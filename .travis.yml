@@ -1,0 +1,40 @@
+language: node_js
+node_js:
+  - '9' 
+  - '10'
+  - '11'
+
+sudo: false
+
+dist: xenial
+
+cache:
+  directories:
+    - $HOME/.ethereum/
+
+matrix:
+  fast_finish: true
+
+before_install:
+  - composer self-update
+  - composer clear-cache
+  
+install: true
+
+before_script:
+  - git config --global user.name travis-ci
+  - git config --global user.email travis@example.com
+  # install ethereum so we can compile .sol files with solc
+  - sudo add-apt-repository ppa:ethereum/ethereum -y
+  - sudo apt-get update
+
+script:
+  # build and deploy ethereum contracts
+  - chmod +x ./contracts/deploy-rinkeby.sh && ./contracts/deploy-rinkeby.sh
+
+git:
+  depth: 3
+  submodules: false
+
+notifications:
+  email: false
