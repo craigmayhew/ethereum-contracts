@@ -18,9 +18,6 @@ echo $RINKEBY_PRIVATE_ACCOUNT_JSON > $HOME/.ethereum/rinkeby/keystore/encrypted-
 # connect to rinkeby
 geth --rinkeby --cache 4096 --nousb --syncmode light &
 
-# Check we have opened a port locally
-lsof -i :8545
-
 # sleep to allow rinkeby to sync
 sleep 60s
 while [ "$(geth --rinkeby --exec 'if(eth.syncing == false){2}else{0}' attach)" -lt 2 ]
