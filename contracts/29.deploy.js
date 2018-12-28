@@ -5,6 +5,8 @@ let web3 = new Web3();
 web3.setProvider(new web3.providers.HttpProvider('http://localhost:8545'));
  
 let storageOutput = fs.readFileSync('/tmp/29.compiled.js', 'utf8');
+//convert the output from a string to a javascript object
+storageOutput = JSON.parse(storageOutput);
 
 let storageContractAbi = storageOutput.contracts['contracts/29.sol:ethForAnswersBounty'].abi
 let storageContract = new web3.eth.Contract(JSON.parse(storageContractAbi))
