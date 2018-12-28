@@ -7,7 +7,7 @@ let storageOutput = fs.readFileSync('/tmp/29.compiled.js', 'utf8');
 //convert the output from a string to a javascript object
 storageOutput = JSON.parse(storageOutput);
 
-web.eth.net.isListening()
+web3.eth.net.isListening()
 .then(() => console.log('web3 is connected, accounts: ', web3.eth.accounts))
 .catch(e => console.log('ERROR connection not made to local node http://localhost:8545'));
 
