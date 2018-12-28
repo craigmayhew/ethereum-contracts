@@ -9,10 +9,10 @@ Anyone can send funds to the contracts, and when solutions are found, the contra
 
 ## The 33 problem
 
-Best explained by numberphile (completely unaffiliated with this project or bigprimes.net): https://www.youtube.com/watch?v=wymmCdLdPvM
+Best explained by numberphile (completely unaffiliated with me, this project or bigprimes.net): https://www.youtube.com/watch?v=wymmCdLdPvM
 
-Very simply, the formula `33 = a^3 + b^3 + c^3` has no known solutions. If you find one, sending the correct a, b and c values to the 33 ethereum contract (address to be added here soon) will pay out the value of the contract to you.
+Very simply, the formula `33 = a^3 + b^3 + c^3` has no known solutions. If you find one, sending the correct a, b and c values to the "33" ethereum contract (address to be added here soon) will pay out the value of the contract to you.
 
-Deployed to rinkeby testnet: https://rinkeby.etherscan.io/address/0xd805430a5c43427302c4ef3a2368ee4833b14369#code
+Deployed to rinkeby testnet (DO NOT SEND FUNDS HERE): https://rinkeby.etherscan.io/address/0xd805430a5c43427302c4ef3a2368ee4833b14369#code
 
 
