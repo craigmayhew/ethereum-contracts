@@ -29,8 +29,6 @@ web3.eth.net.isListening()
         from: ethAccount,
         gas: 1000000
     }).then(function (contract29) {
-        //console.log(contract29.address) // the contract address
-        console.log(contract29.options) // the contract
         console.log("Sending prize fund ether to 29.sol on rinkeby to: ", contract29.options.address);
         web3.eth.sendTransaction({from:ethAccount, to:contract29.options.address, value: 555529000})
         .then(function (txnHash) {
