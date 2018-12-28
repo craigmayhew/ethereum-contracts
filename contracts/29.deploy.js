@@ -10,6 +10,7 @@ let storageOutput = fs.readFileSync('/tmp/29.compiled.js', 'utf8');
 storageOutput = JSON.parse(storageOutput);
 
 console.log('web3.eth.getAccounts():',web3.eth.getAccounts());
+web3.eth.getAccounts().then(e => firstAcc=e[0], console.log(firstAcc));
 
 web3.eth.net.isListening()
 .then(() => console.log('web3 is connected, accounts: ', web3.eth.accounts))
