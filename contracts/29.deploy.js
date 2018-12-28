@@ -35,8 +35,8 @@ web3.eth.net.isListening()
         web3.eth.sendTransaction({from:ethAccount, to:contract29.options.address, value: 555529000})
         .then(function (txnHash) {
             // now you have the unmined transaction hash, return receipt promise
-            console.log(txnHash); // follow along
-            return web3.eth.getTransactionReceiptMined(txnHash);
+            console.log('transaction hash: '+txnHash.transactionHash);
+            return web3.eth.getTransactionReceiptMined(txnHash.transactionHash);
         })
         .then(function (receipt) {
             console.log("Send correct answer for 29.sol")
