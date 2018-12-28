@@ -15,12 +15,12 @@ storageContract.deploy({
     data: storageBinCode,
     arguments: [29]
 }).send({
-    from: eth.accounts[0],
+    from: web3.eth.accounts[0],
     gas: 1000000
 }).then(function (contract29) {
     //console.log(contract29.address) // the contract address
     console.log("Sending prize fund ether to 29.sol on rinkeby to: ", contract29.address)
-    eth.sendTransaction({from:eth.accounts[0], to:contract29.address, value: 555529000})
+    eth.sendTransaction({from:web3.eth.accounts[0], to:contract29.address, value: 555529000})
     .then(function (txnHash) {
         // now you have the unmined transaction hash, return receipt promise
         console.log(txnhash); // follow along
@@ -29,6 +29,6 @@ storageContract.deploy({
     .then(function (receipt) {
         console.log("Send correct answer for 29.sol")
         let getData = contract29.attempt.getData(2220422932,-2128888517,-283059956)
-        return web3.eth.sendTransaction({from:eth.accounts[0], to:contract29.address, data: getData})
+        return web3.eth.sendTransaction({from:web3.eth.accounts[0], to:contract29.address, data: getData})
     })
 })
