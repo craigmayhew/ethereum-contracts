@@ -1,8 +1,11 @@
 var fs = require('fs');
 let Web3 = require('web3');
 
-let web3 = new Web3();
-web3.setProvider(new web3.providers.HttpProvider('http://localhost:8545'));
+const homedir = require('os').homedir();
+
+var net = require('net');
+console.log(homedir + '/.ethereum/rinkeby/geth.ipc');
+var web3 = new Web3(homedir + '/.ethereum/rinkeby/geth.ipc', net);
  
 let storageOutput = fs.readFileSync('/tmp/29.compiled.js', 'utf8');
 //convert the output from a string to a javascript object
