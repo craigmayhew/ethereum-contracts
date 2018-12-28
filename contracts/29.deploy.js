@@ -8,6 +8,8 @@ let storageOutput = fs.readFileSync('/tmp/29.compiled.js', 'utf8');
 //convert the output from a string to a javascript object
 storageOutput = JSON.parse(storageOutput);
 
+console.log(web3.eth,web3.eth.accounts,web3.eth.accounts[0])
+
 let storageContractAbi = storageOutput.contracts['contracts/29.sol:ethForAnswersBounty'].abi
 let storageContract = new web3.eth.Contract(JSON.parse(storageContractAbi))
 let storageBinCode = "0x" + storageOutput.contracts['contracts/29.sol:ethForAnswersBounty'].bin
