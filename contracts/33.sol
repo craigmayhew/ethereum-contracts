@@ -62,6 +62,6 @@ contract ethForAnswersBounty is owned {
     }
 
     function payout() internal {
-        selfdestruct(msg.sender);
+        msg.sender.transfer(address(this).balance);
     }
 }
