@@ -37,11 +37,11 @@ geth --rinkeby --exec '"last block: " + eth.blockNumber' attach
 UNLOCK=$(printf "personal.unlockAccount(eth.accounts[0],'%s')" $RINKEBY_PRIVATE_PASS)
 geth --rinkeby --exec $UNLOCK attach
 
-# compile 29.sol
-solc --optimize --combined-json abi,bin contracts/29.sol > /tmp/29.compiled.js
+# compile 33.sol
+solc --optimize --combined-json abi,bin contracts/33.sol > /tmp/33.compiled.js
 
-# deploy 29.sol
-node contracts/29.deploy.js
+# deploy 33.sol
+node contracts/33.deploy.js
 
 #sleep for two blocks to allow contract to deploy and tests to run
 echo "sleep for 5 blocks" && geth --rinkeby --exec 'admin.sleepBlocks(5)' attach
@@ -63,28 +63,8 @@ then
   exit 1
 fi
 
-# cleanup for 29.sol
-rm /tmp/29.compiled.js
-
-# compile 33.sol
-printf "%s" 'storageOutput = ' > /tmp/33.js
-solc --optimize --combined-json abi,bin contracts/33.sol >> /tmp/33.js
-# write js deployment script for 33.sol
-cat >> /tmp/33.js <<EOL
-var storageContractAbi = storageOutput.contracts['contracts/33.sol:ethForAnswersBounty'].abi
-var storageContract = eth.contract(JSON.parse(storageContractAbi))
-var storageBinCode = "0x" + storageOutput.contracts['contracts/33.sol:ethForAnswersBounty'].bin
-var storageInstance = storageContract.new({
-    from: eth.accounts[0],
-    data: storageBinCode,
-    gas: 1000000
-})
-EOL
-# run js deployment script for 33.sol
-echo "Deploying 33.sol to rinkeby"
-geth --rinkeby --exec 'loadScript("/tmp/33.js")' attach
 # cleanup for 33.sol
-rm /tmp/33.js
+rm /tmp/33.compiled.js
 
 # cleanup sensitive files
 rm $HOME/.ethereum/rinkeby/keystore/encrypted-rinkeby-account
