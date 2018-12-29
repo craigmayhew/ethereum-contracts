@@ -41,6 +41,9 @@ web3.eth.net.isListening()
             contract29.methods.attempt(2220422932,-2128888517,-283059956).send({
                 from: ethAccount,
                 gas: 1000000
+            })
+            .then(function(receipt){
+                console.log("Sent correct answer for 29.sol")
             });
         })
     })
