@@ -44,6 +44,9 @@ web3.eth.net.isListening()
             })
             .then(function(receipt){
                 console.log("Sent correct answer for 29.sol")
+            })
+            .on('confirmation', function(confirmationNumber, receipt){
+                process.exit(0);
             });
         })
     })
