@@ -24,8 +24,8 @@ contract owned {
 }
 
 /*
-  if you wish to test this contract, 51 = (-796)^3+(659)^3+(602)^3
   if you wish to test this contract, 29 = (3)^3+(1)^3+(1)^3
+  if you wish to test this contract, 51 = (-796)^3+(659)^3+(602)^3
 */
 contract ethForAnswersBounty is owned {
     
