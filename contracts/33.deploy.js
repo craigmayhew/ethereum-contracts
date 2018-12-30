@@ -54,13 +54,21 @@ for (let ans in answers) {
                     console.log(" ✔ Sent correct answer for 33.sol (answer="+answers[ans][0]+")")
                 })
                 .then(function(){
-                    //TODO: ✔✘ check we have the correct (one) number of transactions from the contract using web3.eth.getTransactionCount
-
-                    //if we have completed our test run on all created contracts, then nodejs should exit cleanly
-                    testRunsCompleted++;
-                    if(testRunsCompleted = Object.keys(answers).length){
-                        process.exit(0);
-                    }
+                    //check we have the correct (one) number of transactions from the contract using 
+                    web3.eth.getTransactionCount(contract33.options.address, function (err, res){
+                        console.log('txncount ',res);
+                        if(res == 1){
+                            console.log(" ✔ Confirmed, correctly sent outgoing txn from contract "+answers[ans][0]);
+                            //if we have completed our test run on all created contracts, then nodejs should exit cleanly
+                            testRunsCompleted++;
+                            if(testRunsCompleted = Object.keys(answers).length){
+                                process.exit(0);
+                            }
+                        }else{
+                            console.log(" ✘ FAIL, cannot see correct outgoing txns from contract "+answers[ans][0]);
+                            process.exit(1);
+                        }
+                    });
                 });
             })
         })
