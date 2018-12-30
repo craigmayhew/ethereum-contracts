@@ -56,7 +56,6 @@ for (let ans in answers) {
                 .then(function(){
                     //check we have the correct (one) number of transactions from the contract using 
                     web3.eth.getTransactionCount(contract33.options.address, function (err, res){
-                        console.log('txncount ',res);
                         if(res == 1){
                             console.log(" ✔ Confirmed, correctly sent outgoing txn from contract "+answers[ans][0]);
                             //if we have completed our test run on all created contracts, then nodejs should exit cleanly
