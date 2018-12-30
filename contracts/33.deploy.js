@@ -38,7 +38,7 @@ for (let ans in answers) {
             gas: 1000000
         }).then(function (contract33) {
             console.log(" . Sending prize fund ether to 33.sol (answer="+answers[ans][0]+") on rinkeby to: ", contract33.options.address);
-            web3.eth.sendTransaction({from:ethAccount, to:contract33.options.address, value: answers[ans][3]*1000})
+            web3.eth.sendTransaction({from:ethAccount, to:contract33.options.address, value: answers[ans][0]*1000})
             .then(function (txnHash) {
                 // now you have the unmined transaction hash, return receipt promise
                 console.log(" ✔ Sent prize fund ether to 33.sol (answer="+answers[ans][0]+") on rinkeby. transaction: "+txnHash.transactionHash);
