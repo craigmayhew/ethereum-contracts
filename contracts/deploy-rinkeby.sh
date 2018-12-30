@@ -52,7 +52,7 @@ echo "sleep for 2 blocks" && geth --rinkeby --exec 'admin.sleepBlocks(2)' attach
 ENDINGBALANCE="$(geth --rinkeby --exec 'web3.fromWei(eth.getBalance(eth.accounts[0]))' attach)"
 
 printf "Starting balance: %s\n" $STARTINGBALANCE
-printf "Final balance: %s\n" $ENDINGBALANCE
+printf "Final balance:    %s\n" $ENDINGBALANCE
 
 if [ "${STARTINGBALANCE}" = "${ENDINGBALANCE}" ]
 # TODO: consider using php -r "echo (2.981587915886330942-2.981587915886330942);"
