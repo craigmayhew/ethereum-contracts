@@ -29,23 +29,24 @@ web3.eth.net.isListening()
         from: ethAccount,
         gas: 1000000
     }).then(function (contract33) {
-        console.log("Sending prize fund ether to 33.sol (answer=29) on rinkeby to: ", contract33.options.address);
-        web3.eth.sendTransaction({from:ethAccount, to:contract33.options.address, value: 555529000})
+        console.log(" . Sending prize fund ether to 33.sol (answer=29) on rinkeby to: ", contract33.options.address);
+        web3.eth.sendTransaction({from:ethAccount, to:contract33.options.address, value: 29000})
         .then(function (txnHash) {
             // now you have the unmined transaction hash, return receipt promise
-            console.log('transaction hash: '+txnHash.transactionHash);
+            console.log(" ✔ Sent prize fund ether to 33.sol (answer=29) on rinkeby. transaction: "+txnHash.transactionHash);
             return web3.eth.getTransactionReceiptMined(txnHash.transactionHash);
         })
         .then(function (receipt) {
-            console.log("Send correct answer for 33.sol (answer=29)")
+            console.log(" . Sending correct answer for 33.sol (answer=29)")
             contract33.methods.attempt(3,1,1).send({
                 from: ethAccount,
                 gas: 1000000
             })
             .then(function(receipt){
-                console.log("Sent correct answer for 33.sol (answer=29)")
+                console.log(" ✔ Sent correct answer for 33.sol (answer=29)")
             })
             .then(function(){
+                //TODO: ✔✘ check we have the correct (one) number of transactions from the contract using web3.eth.getTransactionCount
                 process.exit(0);
             });
         })
