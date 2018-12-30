@@ -44,8 +44,7 @@ solc --optimize --combined-json abi,bin contracts/33.sol > /tmp/33.compiled.js
 node contracts/33.deploy.js
 
 #sleep for two blocks to allow contract to deploy and tests to run
-echo "sleep for 5 blocks" && geth --rinkeby --exec 'admin.sleepBlocks(5)' attach
-echo "sleep for 5 blocks" && geth --rinkeby --exec 'admin.sleepBlocks(5)' attach
+echo "sleep for 2 blocks" && geth --rinkeby --exec 'admin.sleepBlocks(2)' attach
 
 # TODO: Check the exact number of transactions on the account matches expectations
 
