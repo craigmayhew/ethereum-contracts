@@ -17,6 +17,8 @@ const answers = {
     ans29: [29,3,1,1]
 }
 
+let testRunsCompleted = 0;
+
 for (let ans in answers) {
     web3.eth.net.isListening()
     .then(function(e) {
@@ -53,7 +55,12 @@ for (let ans in answers) {
                 })
                 .then(function(){
                     //TODO: ✔✘ check we have the correct (one) number of transactions from the contract using web3.eth.getTransactionCount
-                    //process.exit(0);
+
+                    //if we have completed our test run on all created contracts, then nodejs should exit cleanly
+                    testRunsCompleted++;
+                    if(testRunsCompleted = Object.keys(answers).length){
+                        process.exit(0);
+                    }
                 });
             })
         })
