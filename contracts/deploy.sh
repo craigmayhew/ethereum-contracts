@@ -12,6 +12,7 @@ node -v
 npm -v
 
 if [[ $TRAVIS_BRANCH == 'master' ]]
+then
   # import mainnet account
   mkdir -p $HOME/.ethereum/keystore/
   echo $MAINNET_PRIVATE_ACCOUNT_JSON > $HOME/.ethereum/keystore/encrypted-mainnet-account
@@ -45,6 +46,7 @@ geth $NETWORK --exec '"last block: " + eth.blockNumber' attach
 
 #unlock wallet
 if [[ $TRAVIS_BRANCH == 'master' ]]
+then
   UNLOCK=$(printf "personal.unlockAccount(eth.accounts[0],'%s')" $MAINNET_PRIVATE_PASS)
 else
   UNLOCK=$(printf "personal.unlockAccount(eth.accounts[0],'%s')" $RINKEBY_PRIVATE_PASS)
@@ -81,6 +83,7 @@ rm /tmp/33.compiled.js
 
 # cleanup sensitive files
 if [[ $TRAVIS_BRANCH == 'master' ]]
+then
   rm $HOME/.ethereum/keystore/encrypted-mainnet-account
 else
   rm $HOME/.ethereum/rinkeby/keystore/encrypted-rinkeby-account
