@@ -24,7 +24,7 @@ before_script:
 
 script:
   # build and deploy ethereum contracts
-  - chmod +x ./contracts/deploy-rinkeby.sh && ./contracts/deploy-rinkeby.sh
+  - chmod +x ./contracts/deploy.sh && ./contracts/deploy.sh
 
 git:
   depth: 3
