@@ -1,4 +1,4 @@
-# may turn out to be a terrible idea, but lets try a deployment pipeline that gets us to rinkeby
+# may turn out to be a terrible idea, but lets try a deployment pipeline that gets us to rinkeby or mainnet
 
 # TODO: perhaps we ditch solc binary and entirely switch to the npm version
 sudo apt-get install -y solc geth
@@ -11,31 +11,45 @@ geth version
 node -v
 npm -v
 
-# import rinkeby test account
-mkdir -p $HOME/.ethereum/rinkeby/keystore/
-echo $RINKEBY_PRIVATE_ACCOUNT_JSON > $HOME/.ethereum/rinkeby/keystore/encrypted-rinkeby-account
+if [[ $TRAVIS_BRANCH == 'master' ]]
+  # import mainnet account
+  mkdir -p $HOME/.ethereum/keystore/
+  echo $MAINNET_PRIVATE_ACCOUNT_JSON > $HOME/.ethereum/keystore/encrypted-mainnet-account
 
-# connect to rinkeby
-geth --rinkeby --cache 4096 --nousb --syncmode light &
+  NETWORK=""
+else
+  # import rinkeby test account
+  mkdir -p $HOME/.ethereum/rinkeby/keystore/
+  echo $RINKEBY_PRIVATE_ACCOUNT_JSON > $HOME/.ethereum/rinkeby/keystore/encrypted-rinkeby-account
 
-# sleep to allow rinkeby to sync
+  NETWORK="--rinkeby"
+fi
+
+# connect to ethereum network
+geth $NETWORK --cache 4096 --nousb --syncmode light &
+
+# sleep to allow ethereum to sync
 sleep 60s
-while [ "$(geth --rinkeby --exec 'if(eth.syncing == false){2}else{0}' attach)" -lt 2 ]
+while [ "$(geth $NETWORK --exec 'if(eth.syncing == false){2}else{0}' attach)" -lt 2 ]
 do
-geth --rinkeby --exec 'eth.syncing' attach
+geth $NETWORK --exec 'eth.syncing' attach
 echo "still syncing, waiting 20s" && sleep 20s
 done
 echo "synced!"
 
-STARTINGBALANCE="$(geth --rinkeby --exec 'web3.fromWei(eth.getBalance(eth.accounts[0]))' attach)"
+STARTINGBALANCE="$(geth $NETWORK --exec 'web3.fromWei(eth.getBalance(eth.accounts[0]))' attach)"
 
 # attempt to use geth, check some fundamentals
-geth --rinkeby --exec '"gas price: " + eth.gasPrice' attach
-geth --rinkeby --exec '"last block: " + eth.blockNumber' attach
+geth $NETWORK --exec '"gas price: " + eth.gasPrice' attach
+geth $NETWORK --exec '"last block: " + eth.blockNumber' attach
 
 #unlock wallet
-UNLOCK=$(printf "personal.unlockAccount(eth.accounts[0],'%s')" $RINKEBY_PRIVATE_PASS)
-geth --rinkeby --exec $UNLOCK attach
+if [[ $TRAVIS_BRANCH == 'master' ]]
+  UNLOCK=$(printf "personal.unlockAccount(eth.accounts[0],'%s')" $MAINNET_PRIVATE_PASS)
+else
+  UNLOCK=$(printf "personal.unlockAccount(eth.accounts[0],'%s')" $RINKEBY_PRIVATE_PASS)
+fi
+geth $NETWORK --exec $UNLOCK attach
 
 # compile 33.sol
 solc --optimize --combined-json abi,bin contracts/33.sol > /tmp/33.compiled.js
@@ -44,12 +58,12 @@ solc --optimize --combined-json abi,bin contracts/33.sol > /tmp/33.compiled.js
 node contracts/33.deploy.js
 
 #sleep for two blocks to allow contract to deploy and tests to run
-echo "sleep for 2 blocks" && geth --rinkeby --exec 'admin.sleepBlocks(2)' attach
+echo "sleep for 2 blocks" && geth $NETWORK --exec 'admin.sleepBlocks(2)' attach
 
 # TODO: Check the exact number of transactions on the account matches expectations
 
 # TODO: Check the before/after balances on wallet
-ENDINGBALANCE="$(geth --rinkeby --exec 'web3.fromWei(eth.getBalance(eth.accounts[0]))' attach)"
+ENDINGBALANCE="$(geth $NETWORK --exec 'web3.fromWei(eth.getBalance(eth.accounts[0]))' attach)"
 
 printf "Starting balance: %s\n" $STARTINGBALANCE
 printf "Final balance:    %s\n" $ENDINGBALANCE
@@ -66,4 +80,8 @@ fi
 rm /tmp/33.compiled.js
 
 # cleanup sensitive files
-rm $HOME/.ethereum/rinkeby/keystore/encrypted-rinkeby-account
+if [[ $TRAVIS_BRANCH == 'master' ]]
+  rm $HOME/.ethereum/keystore/encrypted-mainnet-account
+else
+  rm $HOME/.ethereum/rinkeby/keystore/encrypted-rinkeby-account
+fi
