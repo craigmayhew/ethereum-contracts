@@ -41,7 +41,7 @@ fi
 # sleep while we don't have any connected peers
 # sleep while syncing=false
 sleep 60s
-while [ "$(geth $NETWORK --exec 'if(block.timestamp > Math.round((new Date()).getTime() / 1000)-60 && admin.peers.length > 0 && eth.syncing == false){2}else{0}' attach)" -lt 2 ]
+while [ "$(geth $NETWORK --exec 'if(eth.block.timestamp > Math.round((new Date()).getTime() / 1000)-60 && admin.peers.length > 0 && eth.syncing == false){2}else{0}' attach)" -lt 2 ]
 do
   geth $NETWORK --exec 'eth.syncing' attach
   geth $NETWORK --exec '"still syncing, waiting 20s, total peers: " + admin.peers.length' attach && sleep 20s
