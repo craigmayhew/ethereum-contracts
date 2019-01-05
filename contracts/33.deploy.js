@@ -27,9 +27,9 @@ for (let ans in answers) {
     }).then(function(e) {
         console.log('account: ',e[0]);
         let ethAccount = e[0];
-        let storageContractAbi = storageOutput.contracts['contracts/33.sol:ethForAnswersBounty'].abi
-        let storageContract = new web3.eth.Contract(JSON.parse(storageContractAbi))
-        let storageBinCode = "0x" + storageOutput.contracts['contracts/33.sol:ethForAnswersBounty'].bin
+        let storageContractAbi = storageOutput.contracts['contracts/33.sol:ethForAnswersBounty'].abi;
+        let storageContract = new web3.eth.Contract(JSON.parse(storageContractAbi));
+        let storageBinCode = "0x" + storageOutput.contracts['contracts/33.sol:ethForAnswersBounty'].bin;
         storageContract.deploy({
             data: storageBinCode,
             arguments: [answers[ans][0]]
