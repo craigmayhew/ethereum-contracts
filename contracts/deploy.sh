@@ -29,6 +29,13 @@ fi
 # connect to ethereum network
 geth $NETWORK --cache 4096 --nousb --syncmode light &
 
+if [[ $TRAVIS_BRANCH == 'master' ]]
+then
+  
+else
+  geth $NETWORK --exec 'loadScript("../rinkeby-peers.js")' attach
+fi
+
 # sleep to allow ethereum to sync
 sleep 60s
 while [ "$(geth $NETWORK --exec 'if(admin.peers.length > 0 && eth.syncing == false){2}else{0}' attach)" -lt 2 ]
