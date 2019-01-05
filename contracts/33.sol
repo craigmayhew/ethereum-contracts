@@ -50,7 +50,6 @@ contract ethForAnswersBounty is owned {
         return false;
     }
 
-    // owner withdraws all ETH
     function safeFormula(int256 a, int256 b, int256 c) internal pure returns (int256) {
         // check for overflow potential of a signed 256bit integer, i.e. 255bit
         // the 255bit int needs to store a cube number
