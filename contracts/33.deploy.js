@@ -22,7 +22,7 @@ let testRunsCompleted = 0;
 for (let ans in answers) {
     web3.eth.net.isListening()
     .then(function(e) {
-        console.log('web3 is connected on ipc');
+        console.log('web3 is connected on ipc to geth');
         return web3.eth.getAccounts();
     }).then(function(e) {
         console.log('account: ',e[0]);
