@@ -75,7 +75,7 @@ web3.eth.net.isListening()
                                     console.log(" ✔ Confirmed, correctly sent outgoing txn from contract "+answers[ans][0]);
                                     //if we have completed our test run on all created contracts, then nodejs should exit cleanly
                                     testRunsCompleted++;
-                                    if(testRunsCompleted = Object.keys(answers).length){
+                                    if(testRunsCompleted == Object.keys(answers).length){
                                         process.exit(0);
                                     }
                                 }else{
