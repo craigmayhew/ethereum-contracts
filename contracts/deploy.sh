@@ -40,8 +40,8 @@ fi
 sleep 60s
 while [ "$(geth $NETWORK --exec 'if(admin.peers.length > 0 && eth.syncing == false){2}else{0}' attach)" -lt 2 ]
 do
-geth $NETWORK --exec 'eth.syncing' attach
-geth $NETWORK --exec '"still syncing, waiting 20s, total peers: " + admin.peers.length' attach && sleep 20s
+  geth $NETWORK --exec 'eth.syncing' attach
+  geth $NETWORK --exec '"still syncing, waiting 20s, total peers: " + admin.peers.length' attach && sleep 20s
 done
 echo "synced!"
 
