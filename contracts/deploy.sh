@@ -31,7 +31,7 @@ geth $NETWORK --cache 4096 --nousb --syncmode light &
 
 # sleep to allow ethereum to sync
 sleep 60s
-while [ "$(geth $NETWORK --exec 'if(eth.syncing == false){2}else{0}' attach)" -lt 2 ]
+while [ "$(geth $NETWORK --exec 'if(admin.peers.length > 0 && eth.syncing == false){2}else{0}' attach)" -lt 2 ]
 do
 geth $NETWORK --exec 'eth.syncing' attach
 echo "still syncing, waiting 20s" && sleep 20s
