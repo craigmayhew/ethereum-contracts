@@ -31,7 +31,7 @@ geth $NETWORK --cache 4096 --nousb --syncmode light &
 
 if [[ $TRAVIS_BRANCH == 'master' ]]
 then
-  
+  echo ""
 else
   geth $NETWORK --exec 'loadScript("../rinkeby-peers.js")' attach
 fi
