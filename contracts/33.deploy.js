@@ -30,47 +30,64 @@ for (let ans in answers) {
         let storageContractAbi = storageOutput.contracts['contracts/33.sol:ethForAnswersBounty'].abi;
         let storageContract = new web3.eth.Contract(JSON.parse(storageContractAbi));
         let storageBinCode = "0x" + storageOutput.contracts['contracts/33.sol:ethForAnswersBounty'].bin;
-        storageContract.deploy({
-            data: storageBinCode,
-            arguments: [answers[ans][0]]
-        }).send({
-            from: ethAccount,
-            gas: 1000000
-        }).then(function (contract33) {
-            console.log(" . Sending prize fund ether to 33.sol (answer="+answers[ans][0]+") on rinkeby to: ", contract33.options.address);
-            web3.eth.sendTransaction({from:ethAccount, to:contract33.options.address, value: answers[ans][0]*1000})
-            .then(function (txnHash) {
-                // now you have the unmined transaction hash, return receipt promise
-                console.log(" ✔ Sent prize fund ether to 33.sol (answer="+answers[ans][0]+") on rinkeby. transaction: "+txnHash.transactionHash);
-                return web3.eth.getTransactionReceiptMined(txnHash.transactionHash);
-            })
-            .then(function (receipt) {
-                console.log(" . Sending correct answer for 33.sol (answer="+answers[ans][0]+")")
-                contract33.methods.attempt(answers[ans][1],answers[ans][2],answers[ans][3]).send({
+
+        web3.eth.net.getNetworkType()
+        .then(function(network) {
+            console.log("web3 detects network: ", network);
+            //mainnet only
+            if("main" == network){
+                storageContract.deploy({
+                    data: storageBinCode,
+                    arguments: 33
+                }).send({
                     from: ethAccount,
                     gas: 1000000
-                })
-                .then(function(receipt){
-                    console.log(" ✔ Sent correct answer for 33.sol (answer="+answers[ans][0]+")")
-                })
-                .then(function(){
-                    //check we have the correct (one) number of transactions from the contract using 
-                    web3.eth.getTransactionCount(contract33.options.address, function (err, res){
-                        if(res == 1){
-                            console.log(" ✔ Confirmed, correctly sent outgoing txn from contract "+answers[ans][0]);
-                            //if we have completed our test run on all created contracts, then nodejs should exit cleanly
-                            testRunsCompleted++;
-                            if(testRunsCompleted = Object.keys(answers).length){
-                                process.exit(0);
-                            }
-                        }else{
-                            console.log(" ✘ FAIL, cannot see correct outgoing txns from contract "+answers[ans][0]);
-                            process.exit(1);
-                        }
-                    });
                 });
-            })
-        })
+            }else{
+                //rinkeby only
+                storageContract.deploy({
+                    data: storageBinCode,
+                    arguments: [answers[ans][0]]
+                }).send({
+                    from: ethAccount,
+                    gas: 1000000
+                }).then(function (contract33) {
+                    console.log(" . Sending prize fund ether to 33.sol (answer="+answers[ans][0]+") on rinkeby to: ", contract33.options.address);
+                    web3.eth.sendTransaction({from:ethAccount, to:contract33.options.address, value: answers[ans][0]*1000})
+                    .then(function (txnHash) {
+                        // now you have the unmined transaction hash, return receipt promise
+                        console.log(" ✔ Sent prize fund ether to 33.sol (answer="+answers[ans][0]+") on rinkeby. transaction: "+txnHash.transactionHash);
+                        return web3.eth.getTransactionReceiptMined(txnHash.transactionHash);
+                    })
+                    .then(function (receipt) {
+                        console.log(" . Sending correct answer for 33.sol (answer="+answers[ans][0]+")")
+                        contract33.methods.attempt(answers[ans][1],answers[ans][2],answers[ans][3]).send({
+                            from: ethAccount,
+                            gas: 1000000
+                        })
+                        .then(function(receipt){
+                            console.log(" ✔ Sent correct answer for 33.sol (answer="+answers[ans][0]+")")
+                        })
+                        .then(function(){
+                            //check we have the correct (one) number of transactions from the contract using 
+                            web3.eth.getTransactionCount(contract33.options.address, function (err, res){
+                                if(res == 1){
+                                    console.log(" ✔ Confirmed, correctly sent outgoing txn from contract "+answers[ans][0]);
+                                    //if we have completed our test run on all created contracts, then nodejs should exit cleanly
+                                    testRunsCompleted++;
+                                    if(testRunsCompleted = Object.keys(answers).length){
+                                        process.exit(0);
+                                    }
+                                }else{
+                                    console.log(" ✘ FAIL, cannot see correct outgoing txns from contract "+answers[ans][0]);
+                                    process.exit(1);
+                                }
+                            });
+                        });
+                    })
+                })
+            }
+        });
     })
     .catch(function (err) {
         console.log(" ✘ FAILURE ", err);
