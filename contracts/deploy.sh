@@ -39,7 +39,7 @@ fi
 # sleep to allow ethereum to sync
 # sleep while we don't have any connected peers
 # sleep while syncing=false
-sleep 60s
+sleep 120s
 while [ "$(geth $NETWORK --exec 'if(admin.peers.length > 0 && eth.syncing == false){2}else{0}' attach)" -lt 2 ]
 do
   geth $NETWORK --exec 'eth.syncing' attach
