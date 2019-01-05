@@ -71,5 +71,9 @@ for (let ans in answers) {
                 });
             })
         })
+    })
+    .catch(function (err) {
+        console.log(" ✘ FAILURE ", err);
+        process.exit(1);
     });
 }
