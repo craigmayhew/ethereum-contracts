@@ -19,13 +19,13 @@ const answers = {
 
 let testRunsCompleted = 0;
 
-for (let ans in answers) {
-    web3.eth.net.isListening()
-    .then(function(e) {
-        console.log('web3 is connected on ipc to geth');
-        return web3.eth.getAccounts();
-    }).then(function(e) {
-        console.log('account: ',e[0]);
+web3.eth.net.isListening()
+.then(function(e) {
+    console.log('web3 is connected on ipc to geth');
+    return web3.eth.getAccounts();
+}).then(function(e) {
+    console.log('account: ',e[0]);
+    for (let ans in answers) {
         let ethAccount = e[0];
         let storageContractAbi = storageOutput.contracts['contracts/33.sol:ethForAnswersBounty'].abi;
         let storageContract = new web3.eth.Contract(JSON.parse(storageContractAbi));
@@ -88,9 +88,9 @@ for (let ans in answers) {
                 })
             }
         });
-    })
-    .catch(function (err) {
-        console.log(" ✘ FAILURE ", err);
-        process.exit(1);
-    });
-}
+    }
+})
+.catch(function (err) {
+    console.log(" ✘ FAILURE ", err);
+    process.exit(1);
+});
