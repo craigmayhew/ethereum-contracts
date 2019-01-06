@@ -26,10 +26,10 @@ let testRunsCompleted = 0;
 
 web3.eth.net.isListening()
 .then(function(e) {
-    console.log('web3 is connected on ipc to geth via ', ipcLocation);
+    console.log('web3 is connected on ipc to geth via', ipcLocation);
     return web3.eth.getAccounts();
 }).then(function(e) {
-    console.log('account: ',e[0]);
+    console.log('account:',e[0]);
     for (let ans in answers) {
         let ethAccount = e[0];
         let storageContractAbi = storageOutput.contracts['contracts/33.sol:ethForAnswersBounty'].abi;
@@ -38,7 +38,7 @@ web3.eth.net.isListening()
 
         web3.eth.net.getNetworkType()
         .then(function(network) {
-            console.log("web3 detects network: ", network);
+            console.log("web3 detects network:", network);
             //mainnet only
             if("main" == network){
                 console.log("Deploying 33.sol to mainnet");
@@ -100,6 +100,6 @@ web3.eth.net.isListening()
     }
 })
 .catch(function (err) {
-    console.log(" ✘ FAILURE ", err);
+    console.log(" ✘ FAILURE", err);
     process.exit(1);
 });
