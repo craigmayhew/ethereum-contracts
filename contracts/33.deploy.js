@@ -48,6 +48,9 @@ web3.eth.net.isListening()
                 }).send({
                     from: ethAccount,
                     gas: 1000000
+                }).catch(function (err) {
+                    console.log(" ✘ Deploy FAILURE for 33.sol", err);
+                    process.exit(1);
                 });
             }else{
                 //rinkeby only
