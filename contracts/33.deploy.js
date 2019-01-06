@@ -3,7 +3,12 @@ let Web3 = require('web3');
 
 // Using the IPC provider in node.js
 var net = require('net');
-var web3 = new Web3('/home/travis/.ethereum/rinkeby/geth.ipc', net);
+if ('master' == process.env.TRAVIS_BRANCH){
+    ipcLocation = '/home/travis/.ethereum/geth.ipc';
+}else{
+    ipcLocation = '/home/travis/.ethereum/rinkeby/geth.ipc';
+}
+var web3 = new Web3(ipcLocation, net);
 
 // pull in an extension to web3, courtesy of https://gist.github.com/xavierlepretre/88682e871f4ad07be4534ae560692ee6
 web3.eth.getTransactionReceiptMined = require("../modules/getTransactionReceiptMined.js");
@@ -21,7 +26,7 @@ let testRunsCompleted = 0;
 
 web3.eth.net.isListening()
 .then(function(e) {
-    console.log('web3 is connected on ipc to geth');
+    console.log('web3 is connected on ipc to geth via ', ipcLocation);
     return web3.eth.getAccounts();
 }).then(function(e) {
     console.log('account: ',e[0]);
@@ -36,6 +41,7 @@ web3.eth.net.isListening()
             console.log("web3 detects network: ", network);
             //mainnet only
             if("main" == network){
+                console.log("Deploying 33.sol to mainnet");
                 storageContract.deploy({
                     data: storageBinCode,
                     arguments: 33
