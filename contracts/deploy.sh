@@ -28,6 +28,7 @@ fi
 
 # connect to ethereum network
 geth $NETWORK --cache 4096 --nousb --syncmode light &
+sleep 5s
 
 if [[ $TRAVIS_BRANCH == 'master' ]]
 then
