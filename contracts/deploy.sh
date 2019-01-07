@@ -32,7 +32,7 @@ else
   geth $NETWORK --ipcpath $HOME/.ethereum/rinkeby/geth.ipc --cache 4096 --nousb --syncmode light &
 fi
 
-sleep 5s
+sleep 30s
 
 if [[ $TRAVIS_BRANCH == 'master' ]]
 then
