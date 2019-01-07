@@ -18,16 +18,20 @@ then
   echo $MAINNET_PRIVATE_ACCOUNT_JSON > $HOME/.ethereum/keystore/encrypted-mainnet-account
 
   NETWORK=""
+
+  # connect to ethereum network
+  geth $NETWORK --ipcpath '/home/travis/.ethereum/geth.ip' --cache 4096 --nousb --syncmode light &
 else
   # import rinkeby test account
   mkdir -p $HOME/.ethereum/rinkeby/keystore/
   echo $RINKEBY_PRIVATE_ACCOUNT_JSON > $HOME/.ethereum/rinkeby/keystore/encrypted-rinkeby-account
 
   NETWORK="--rinkeby"
+
+  # connect to ethereum network
+  geth $NETWORK --ipcpath '/home/travis/.ethereum/rinkeby/geth.ipc' --cache 4096 --nousb --syncmode light &
 fi
 
-# connect to ethereum network
-geth $NETWORK --cache 4096 --nousb --syncmode light &
 sleep 5s
 
 if [[ $TRAVIS_BRANCH == 'master' ]]
