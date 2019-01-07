@@ -20,7 +20,7 @@ then
   NETWORK=""
 
   # connect to ethereum network
-  geth $NETWORK --ipcpath $HOME/.ethereum/geth.ip --cache 4096 --nousb --syncmode light &
+  geth $NETWORK --ipcpath $HOME/.ethereum/geth.ipc --cache 4096 --nousb --syncmode light &
 else
   # import rinkeby test account
   mkdir -p $HOME/.ethereum/rinkeby/keystore/
