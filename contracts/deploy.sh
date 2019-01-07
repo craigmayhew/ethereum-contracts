@@ -36,9 +36,9 @@ sleep 30s
 
 if [[ $TRAVIS_BRANCH == 'master' ]]
 then
-  geth $NETWORK --exec 'loadScript("../mainnet-peers.js")' attach
+  geth $NETWORK --exec "loadScript(\"$TRAVIS_BUILD_DIR/mainnet-peers.js\")" attach
 else
-  geth $NETWORK --exec 'loadScript("../rinkeby-peers.js")' attach
+  geth $NETWORK --exec "loadScript(\"$TRAVIS_BUILD_DIR/rinkeby-peers.js\")" attach
 fi
 
 # sleep to allow ethereum to sync
