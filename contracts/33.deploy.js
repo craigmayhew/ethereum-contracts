@@ -94,28 +94,28 @@ web3.eth.net.isListening()
                             });
                         })
                         .catch(function (err) {
-                            console.log(" ✘ FAILURE", err);
+                            console.log(" ✘ FAILURE 5", err);
                             process.exit(1);
                         });
                     })
                     .catch(function (err) {
-                        console.log(" ✘ FAILURE", err);
+                        console.log(" ✘ FAILURE 4", err);
                         process.exit(1);
                     });
                 })
                 .catch(function (err) {
-                    console.log(" ✘ FAILURE", err);
+                    console.log(" ✘ FAILURE 3", err);
                     process.exit(1);
                 });
             }
         })
         .catch(function (err) {
-            console.log(" ✘ FAILURE", err);
+            console.log(" ✘ FAILURE 2", err);
             process.exit(1);
         });
     }
 })
 .catch(function (err) {
-    console.log(" ✘ FAILURE", err);
+    console.log(" ✘ FAILURE 1", err);
     process.exit(1);
 });
