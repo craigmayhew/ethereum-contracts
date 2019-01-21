@@ -92,10 +92,26 @@ web3.eth.net.isListening()
                                     process.exit(1);
                                 }
                             });
+                        })
+                        .catch(function (err) {
+                            console.log(" ✘ FAILURE", err);
+                            process.exit(1);
                         });
                     })
+                    .catch(function (err) {
+                        console.log(" ✘ FAILURE", err);
+                        process.exit(1);
+                    });
                 })
+                .catch(function (err) {
+                    console.log(" ✘ FAILURE", err);
+                    process.exit(1);
+                });
             }
+        })
+        .catch(function (err) {
+            console.log(" ✘ FAILURE", err);
+            process.exit(1);
         });
     }
 })
