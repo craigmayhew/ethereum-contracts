@@ -30,30 +30,31 @@ web3.eth.net.isListening()
     return web3.eth.getAccounts();
 }).then(function(e) {
     console.log('account:',e[0]);
-    for (let ans in answers) {
-        let ethAccount = e[0];
-        let storageContractAbi = storageOutput.contracts['contracts/33.sol:ethForAnswersBounty'].abi;
-        let storageContract = new web3.eth.Contract(JSON.parse(storageContractAbi));
-        let storageBinCode = "0x" + storageOutput.contracts['contracts/33.sol:ethForAnswersBounty'].bin;
 
-        web3.eth.net.getNetworkType()
-        .then(function(network) {
-            console.log("web3 detects network:", network);
-            //mainnet only
-            if("main" == network){
-                console.log("Deploying 33.sol to mainnet");
-                storageContract.deploy({
-                    data: storageBinCode,
-                    arguments: 33
-                }).send({
-                    from: ethAccount,
-                    gas: 5000000000
-                }).catch(function (err) {
-                    console.log(" ✘ Deploy FAILURE for 33.sol", err);
-                    process.exit(1);
-                });
-            }else{
-                //rinkeby only
+    let ethAccount = e[0];
+    let storageContractAbi = storageOutput.contracts['contracts/33.sol:ethForAnswersBounty'].abi;
+    let storageContract = new web3.eth.Contract(JSON.parse(storageContractAbi));
+    let storageBinCode = "0x" + storageOutput.contracts['contracts/33.sol:ethForAnswersBounty'].bin;
+
+    web3.eth.net.getNetworkType()
+    .then(function(network) {
+        console.log("web3 detects network:", network);
+        //mainnet only
+        if("main" == network){
+            console.log("Deploying 33.sol to mainnet");
+            storageContract.deploy({
+                data: storageBinCode,
+                arguments: 33
+            }).send({
+                from: ethAccount,
+                gas: 5000000000
+            }).catch(function (err) {
+                console.log(" ✘ Deploy FAILURE for 33.sol", err);
+                process.exit(1);
+            });
+        }else{
+            //rinkeby only
+            for (let ans in answers) {
                 storageContract.deploy({
                     data: storageBinCode,
                     arguments: [answers[ans][0]]
@@ -108,12 +109,12 @@ web3.eth.net.isListening()
                     process.exit(1);
                 });
             }
-        })
-        .catch(function (err) {
-            console.log(" ✘ FAILURE 2", err);
-            process.exit(1);
-        });
-    }
+        }
+    })
+    .catch(function (err) {
+        console.log(" ✘ FAILURE 2", err);
+        process.exit(1);
+    });
 })
 .catch(function (err) {
     console.log(" ✘ FAILURE 1", err);
