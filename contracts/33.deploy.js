@@ -44,7 +44,7 @@ web3.eth.net.isListening()
             console.log("Deploying 33.sol to mainnet");
             storageContract.deploy({
                 data: storageBinCode,
-                arguments: 33
+                arguments: [33]
             }).send({
                 from: ethAccount,
                 gas: 5000000000
