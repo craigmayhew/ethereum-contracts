@@ -48,6 +48,9 @@ web3.eth.net.isListening()
             }).send({
                 from: ethAccount,
                 gas: web3.eth.gasPrice
+            }).then(function (contract) {
+                //successful deployment
+                process.exit(0);
             }).catch(function (err) {
                 console.log(" ✘ Deploy FAILURE for 33.sol", err);
                 process.exit(1);
