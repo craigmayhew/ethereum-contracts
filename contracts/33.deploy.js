@@ -47,7 +47,7 @@ web3.eth.net.isListening()
                 arguments: [33]
             }).send({
                 from: ethAccount,
-                gas: web3.eth.gasPrice
+                gas: 1000000
             }).then(function (contract) {
                 //successful deployment
                 process.exit(0);
