@@ -47,7 +47,7 @@ web3.eth.net.isListening()
                 arguments: [33]
             }).send({
                 from: ethAccount,
-                gas: 5000000
+                gas: web3.eth.gasPrice
             }).catch(function (err) {
                 console.log(" ✘ Deploy FAILURE for 33.sol", err);
                 process.exit(1);
